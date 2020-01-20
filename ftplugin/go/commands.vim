@@ -35,8 +35,4 @@ command! -nargs=? -complete=customlist,go#package#Complete GoDrop call go#import
 command! -nargs=1 -bang -complete=customlist,go#package#Complete GoImport call go#import#SwitchImport(1, '', <f-args>, '<bang>')
 command! -nargs=* -bang -complete=customlist,go#package#Complete GoImportAs call go#import#SwitchImport(1, <f-args>, '<bang>')
 
-" -- linters
-command! -nargs=* -bang GoLint call go#lint#Golint(<bang>0, <f-args>)
-command! -nargs=* -bang GoVet call go#lint#Vet(<bang>0, <f-args>)
-
 " vim: sw=2 ts=2 et

@@ -45,8 +45,6 @@ experience.
   * Look up documentation with |:GoDoc|.
   * Easily import packages via |:GoImport|, remove them via |:GoDrop|.
   * See which code is covered by tests with |:GoCoverage|.
-  * Lint your code with |:GoLint|, run your code through |:GoVet| to catch
-    static errors.
   * Automatic `GOPATH` detection which works with `gb` and `godep`. Change or
     display `GOPATH` with |:GoPath|.
   * Text objects such as "a function" (|go-af|) or "inner function" (|go-if|).
@@ -81,21 +79,9 @@ manager's install command.
     git clone https://github.com/edganiukov/vim-gol.git \
       ~/.vim/pack/plugins/start/vim-gol
 <
-*  https://github.com/tpope/vim-pathogen >
-
-    git clone https://github.com/edganiukov/vim-gol.git ~/.vim/bundle/vim-gol
-<
 *  https://github.com/junegunn/vim-plug >
 
     Plug 'edganiukov/vim-gol'
-<
-*  https://github.com/Shougo/neobundle.vim >
-
-    NeoBundle 'edganiukov/vim-gol'
-<
-*  https://github.com/gmarik/vundle >
-
-    Plugin 'edganiukov/vim-gol'
 <
 *  Manual (not recommended) >
 
@@ -104,9 +90,6 @@ manager's install command.
 
 Depending on your installation method, you may have to generate the plugin's
 |:helptags| manually (e.g. `:helptags ALL`).
-
-Code completion is enabled by default via 'omnifunc', which you can trigger
-with |i_CTRL-X_CTRL-O| (`<C-x><C-o>`).
 
 Supported Go plugins~                                         *vim-go-plugins*
 
@@ -152,14 +135,6 @@ COMMANDS                                                         *go-commands*
     current Go buffer.  If {path} is not being imported, an error will be
     displayed and the buffer will be untouched.
 
-                                                                     *:GoLint*
-:GoLint! [packages]
-
-    Run golint for the directory under your current file, or for the given
-    packages.
-
-    If [!] is not given the first error is jumped to.
-
                                                                       *:GoDoc*
 :GoDoc [word]
 
@@ -179,19 +154,6 @@ COMMANDS                                                         *go-commands*
     `goimports` automatically discards/add import path based on the code. Like
     |:GoFmt|, It tries to preserve cursor position and avoids replacing the
     buffer with stderr output.
-
-                                                                      *:GoVet*
-:GoVet[!] [options]
-
-    Run `go vet` for the directory under your current file. Vet examines Go
-    source code and reports suspicious constructs, such as Printf calls whose
-    arguments do not align with the format string. Vet uses heuristics that do
-    not guarantee all reports are genuine problems, but it can find errors not
-    caught by the compilers.
-
-    You may optionally pass any valid go vet flags/options.
-
-    If [!] is not given the first error is jumped to.
 
                                                                       *:GoRun*
 :GoRun[!] [expand]
@@ -436,14 +398,6 @@ annotation.
                                                                 *(go-imports)*
 
 Calls `goimports` for the current package
-
-                                                                   *(go-lint)*
-
-Calls `golint` for the current package
-
-                                                                    *(go-vet)*
-
-Calls `go vet` for the current package
 
 
                                                                   *(go-files)*
@@ -769,9 +723,8 @@ that was called. Supported values are "", "quickfix", and "locationlist".
 Specifies the type of list to use for command outputs (such as errors from
 builds, results from static analysis commands, etc...). When an expected key
 is not present in the dictionary, |'g:go_list_type'| will be used instead.
-Supported keys are "GoBuild", "GoErrCheck", "GoFmt", "GoModFmt", "GoInstall",
-"GoLint", "GoMetaLinter", "GoMetaLinterAutoSave", "GoModifyTags" (used for
-both :GoAddTags and :GoRemoveTags), "GoRename", "GoRun", and "GoTest".
+Supported keys are "GoBuild", "GoFmt", "GoModFmt", "GoInstall", "GoRun"
+and "GoTest".
 Supported values for each command are "quickfix" and "locationlist".
 >
   let g:go_list_type_commands = {}

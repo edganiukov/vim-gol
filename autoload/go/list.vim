@@ -138,11 +138,9 @@ let s:default_list_type_commands = {
       \ "GoFmt":                "locationlist",
       \ "GoGenerate":           "quickfix",
       \ "GoInstall":            "quickfix",
-      \ "GoLint":               "quickfix",
       \ "GoModFmt":             "locationlist",
       \ "GoRun":                "quickfix",
       \ "GoTest":               "quickfix",
-      \ "GoVet":                "quickfix",
       \ "_term":                "locationlist",
       \ "_job":                 "locationlist",
   \ }
