@@ -12,7 +12,7 @@ It is a fork of [vim-go](https://github.com/fatih/vim-go) with removed all unnec
 * Look up documentation with `:GoDoc`.
 * Easily import packages via `:GoImport`, remove them via `:GoDrop`.
 * See which code is covered by tests with `:GoCoverage`.
-* Automatic `GOPATH` detection which works with `gb` and `godep`. Change or display `GOPATH` with `:GoPath`.
+* Automatic `GOPATH` detection. Change or display `GOPATH` with `:GoPath`.
 * Text objects such as "a function" (`go-af`) or "inner function" (`go-if`).
 * Most commands are run asynchronous in Neovim and Vim 8. Fully async building and testing.
 * Integrated with the Neovim terminal, launch `:GoRun` and other Go commands in a terminal buffer.

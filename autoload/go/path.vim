@@ -69,9 +69,7 @@ function! s:HasPath(path) abort
   return hasA || hasB
 endfunction
 
-" Detect returns the current GOPATH. If a package manager is used, such as
-" Godeps, GB, it will modify the GOPATH so those directories take precedence
-" over the current GOPATH. It also detects diretories whose are outside
+" Detect returns the current GOPATH. It also detects diretories whose are outside
 " GOPATH.
 function! go#path#Detect() abort
   let gopath = go#path#Default()
@@ -95,25 +93,8 @@ function! go#path#Detect() abort
   if !empty(src_root)
     let src_path = fnamemodify(src_root, ':p:h:h') . go#util#PathSep()
 
-    " gb vendor plugin
-    " (https://github.com/constabulary/gb/tree/master/cmd/gb-vendor)
-    let gb_vendor_root = src_path . "vendor" . go#util#PathSep()
-    if isdirectory(gb_vendor_root) && !s:HasPath(gb_vendor_root)
-      let gopath = gb_vendor_root . go#util#PathListSep() . gopath
-    endif
-
     if !s:HasPath(src_path)
       let gopath =  src_path . go#util#PathListSep() . gopath
-    endif
-  endif
-
-  " Godeps
-  let godeps_root = finddir("Godeps", current_dir .";")
-  if !empty(godeps_root)
-    let godeps_path = join([fnamemodify(godeps_root, ':p:h:h'), "Godeps", "_workspace" ], go#util#PathSep())
-
-    if !s:HasPath(godeps_path)
-      let gopath =  godeps_path . go#util#PathListSep() . gopath
     endif
   endif
 
