@@ -45,6 +45,7 @@ experience.
   * Look up documentation with |:GoDoc|.
   * Easily import packages via |:GoImport|, remove them via |:GoDrop|.
   * See which code is covered by tests with |:GoCoverage|.
+  * Run your code through |:GoVet| to catch static errors.
   * Automatic `GOPATH` detection which works with `gb` and `godep`. Change or
     display `GOPATH` with |:GoPath|.
   * Text objects such as "a function" (|go-af|) or "inner function" (|go-if|).
@@ -154,6 +155,19 @@ COMMANDS                                                         *go-commands*
     `goimports` automatically discards/add import path based on the code. Like
     |:GoFmt|, It tries to preserve cursor position and avoids replacing the
     buffer with stderr output.
+
+                                                                      *:GoVet*
+:GoVet[!] [options]
+
+    Run `go vet` for the directory under your current file. Vet examines Go
+    source code and reports suspicious constructs, such as Printf calls whose
+    arguments do not align with the format string. Vet uses heuristics that do
+    not guarantee all reports are genuine problems, but it can find errors not
+    caught by the compilers.
+
+    You may optionally pass any valid go vet flags/options.
+
+    If [!] is not given the first error is jumped to.
 
                                                                       *:GoRun*
 :GoRun[!] [expand]
@@ -399,6 +413,9 @@ annotation.
 
 Calls `goimports` for the current package
 
+                                                                    *(go-vet)*
+
+Calls `go vet` for the current package
 
                                                                   *(go-files)*
 
