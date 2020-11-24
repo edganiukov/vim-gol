@@ -19,7 +19,7 @@ endif
 
 
 function! s:SetTagbar()
-  let bin_path = go#path#CheckBinPath(g:go_gotags_bin)
+  let bin_path = go#util#CheckBinPath(g:go_gotags_bin)
   if empty(bin_path)
     return
   endif

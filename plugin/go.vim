@@ -34,7 +34,6 @@ endfunction
 
 call s:checkVersion()
 
-command! -nargs=? -complete=dir GoPath call go#path#GoPath(<f-args>)
 fun! s:complete(lead, cmdline, cursor)
   return filter(keys(s:packages), 'strpart(v:val, 0, len(a:lead)) == a:lead')
 endfun
@@ -66,12 +65,6 @@ function! s:register()
   if !(&modifiable && expand('<amatch>') ==# 'go')
     return
   endif
-
-  let l:RestoreGopath = function('s:noop')
-  if go#config#AutodetectGopath()
-    let l:RestoreGopath = go#util#SetEnv('GOPATH', go#path#Detect())
-  endif
-  call call(l:RestoreGopath, [])
 endfunction
 
 function! s:noop(...) abort

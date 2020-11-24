@@ -18,20 +18,18 @@ CONTENTS                                                         *go-contents*
   2. Install......................................|go-install|
   3. Commands.....................................|go-commands|
   4. Mappings.....................................|go-mappings|
-  5. Text Objects.................................|go-text-objects|
-  6. Functions....................................|go-functions|
-  7. Settings.....................................|go-settings|
-  8. Syntax highlighting..........................|go-syntax|
-  9. FAQ/Troubleshooting..........................|go-troubleshooting|
- 10. Development..................................|go-development|
- 11. Donation.....................................|go-donation|
- 12. Credits......................................|go-credits|
+  5. Functions....................................|go-functions|
+  6. Settings.....................................|go-settings|
+  7. Syntax highlighting..........................|go-syntax|
+  8. FAQ/Troubleshooting..........................|go-troubleshooting|
+  9. Development..................................|go-development|
+ 10. Donation.....................................|go-donation|
+ 11. Credits......................................|go-credits|
 
 ==============================================================================
 INTRO                                                               *go-intro*
 
 Go (golang) support for Vim. vim-go comes with sensible predefined settings
-(e.g. automatic `gofmt` on save), has code completion, snippet support,
 improved syntax highlighting, go toolchain commands, etc. It is highly
 customizable, and individual features can be toggled easily. vim-go leverages
 a number of tools developed by the Go community to provide a seamless Vim
@@ -41,14 +39,8 @@ experience.
     test it with |:GoTest|. Run a single test with |:GoTestFunc|).
   * Quickly execute your current file(s) with |:GoRun|.
   * Improved syntax highlighting and folding.
-  * `gofmt` or `goimports` on save keeps the cursor position and undo history.
-  * Look up documentation with |:GoDoc|.
-  * Easily import packages via |:GoImport|, remove them via |:GoDrop|.
   * See which code is covered by tests with |:GoCoverage|.
   * Run your code through |:GoVet| to catch static errors.
-  * Automatic `GOPATH` detection which works with `gb` and `godep`. Change or
-    display `GOPATH` with |:GoPath|.
-  * Text objects such as "a function" (|go-af|) or "inner function" (|go-if|).
   * Most commands are run asynchronous in Neovim and Vim 8. Fully async
     building and testing.
   * Integrated with the Neovim terminal, launch |:GoRun| and other Go commands
@@ -101,73 +93,6 @@ The following plugins are supported for use with vim-go:
 
 ==============================================================================
 COMMANDS                                                         *go-commands*
-
-                                                        *:GoReportGitHubIssue*
-:GoReportGitHubIssue
-    GoReportGitHubIssue opens the default browser and starts a new bug report
-    with useful system information.
-
-                                                                     *:GoPath*
-:GoPath [path]
-
-    GoPath sets and overrides GOPATH with the given {path}. If no {path} is
-    given it shows the current GOPATH. If `""` is given as path, it clears
-    current `GOPATH` which was set with |:GoPath| and restores `GOPATH` back
-    to the initial value which was sourced when Vim was started.
-
-                                                                   *:GoImport*
-:GoImport[!] [path]
-
-    Import ensures that the provided package {path} is imported in the current
-    Go buffer, using proper style and ordering. If {path} is already being
-    imported, an error will be displayed and the buffer will be untouched.
-
-    If [!] is given it will download the package with `go get`
-
-                                                                 *:GoImportAs*
-:GoImportAs [localname] [path]
-
-    Same as Import, but uses a custom local name for the package.
-
-                                                                     *:GoDrop*
-:GoDrop [path]
-
-    Remove the import line for the provided package {path}, if present in the
-    current Go buffer.  If {path} is not being imported, an error will be
-    displayed and the buffer will be untouched.
-
-                                                                      *:GoDoc*
-:GoDoc [word]
-
-    Open the relevant GoDoc in split window for either the word[s] passed to
-    the command or by default, the word under the cursor.
-
-                                                                      *:GoFmt*
-:GoFmt
-
-    Filter the current Go buffer through gofmt.  It tries to preserve cursor
-    position and avoids replacing the buffer with stderr output.
-
-                                                                  *:GoImports*
-:GoImports
-
-    Filter the current Go buffer through goimports (needs to be installed).
-    `goimports` automatically discards/add import path based on the code. Like
-    |:GoFmt|, It tries to preserve cursor position and avoids replacing the
-    buffer with stderr output.
-
-                                                                      *:GoVet*
-:GoVet[!] [options]
-
-    Run `go vet` for the directory under your current file. Vet examines Go
-    source code and reports suspicious constructs, such as Printf calls whose
-    arguments do not align with the format string. Vet uses heuristics that do
-    not guarantee all reports are genuine problems, but it can find errors not
-    caught by the compilers.
-
-    You may optionally pass any valid go vet flags/options.
-
-    If [!] is not given the first error is jumped to.
 
                                                                       *:GoRun*
 :GoRun[!] [expand]
@@ -301,11 +226,6 @@ COMMANDS                                                         *go-commands*
     Command-line completion also works for this command.
     The default is to use `GoFiles` if no arguments are given.
 
-                                                                     *:GoDeps*
-:GoDeps
-
-    Show dependencies for the current package.
-
                                                                 *:GoBuildTags*
 :GoBuildTags [tags]
 
@@ -317,10 +237,6 @@ COMMANDS                                                         *go-commands*
     The build tags is cleared (unset) if `""` is given. If no arguments are
     given it prints the current build tags.
 
-                                                        *:GoFmtAutoSaveToggle*
-:GoFmtAutoSaveToggle
-
-    Toggles |'g:go_fmt_autosave'|.
 
                                                      *:GoModFmtAutoSaveToggle*
 :GoModFmtAutoSaveToggle
@@ -374,10 +290,6 @@ Calls `go build` for the current package
 
 Calls `go generate` for the current package
 
-                                                                   *(go-info)*
-
-Shows type information for the word under the cursor
-
                                                                 *(go-install)*
 
 Calls `go install` for the current package
@@ -409,86 +321,9 @@ Calls `go test -coverprofile-temp.out` for the current package and shows the
 coverage annotation. If run again it acts as a toggle and clears the
 annotation.
 
-                                                                *(go-imports)*
-
-Calls `goimports` for the current package
-
-                                                                    *(go-vet)*
-
-Calls `go vet` for the current package
-
-                                                                  *(go-files)*
-
-Show source files that depends for the current package
-
-
-                                                                   *(go-deps)*
-
-Show dependencies for the current package
-
-                                                                    *(go-doc)*
-
-Show the relevant GoDoc for the word under the cursor in a split window
-leftabove (default mode).
-
-                                                              *(go-doc-split)*
-
-Show the relevant GoDoc for the word under the cursor in a split window.
-
-
-                                                           *(go-doc-vertical)*
-
-Show the relevant GoDoc for the word under the cursor in a vertical split
-window.
-
-                                                                *(go-doc-tab)*
-
-Show the relevant GoDoc for the word under the cursor in a tab window.
-
-                                                                 *(go-import)*
-
-Calls `:GoImport` for the current package
-
                                                                 *(go-mod-fmt)*
 
 Calls |:GoModFmt| for the current buffer
-
-==============================================================================
-TEXT OBJECTS                                                 *go-text-objects*
-
-vim-go comes with several custom |text-objects| that can be used to operate
-upon regions of text. vim-go currently defines the following text objects:
-
-                                               *go-v_af* *go-af*
-af            "a function", select contents from a function definition to the
-               closing bracket. If |'g:go_textobj_include_function_doc'| is
-               enabled it also includes the comment doc for a function
-               declaration. This text-object also supports literal functions.
-               If |'g:go_textobj_include_variable'| is enabled it also
-               includes the variable of an function assignment
-
-                                               *go-v_if* *go-if*
-if            "inside a function", select contents of a function,
-              excluding the function definition and the closing bracket. This
-              text-object also supports literal functions
-
-                                               *go-v_ac* *go-ac*
-ac            "a comment", select contents of the current comment block.
-
-                                               *go-v_ic* *go-ic*
-ic            "inner comment", select contents of the current comment block,
-              excluding the start and end comment markers.
-
-vim-go also defines the following text motion objects:
-
-                                               *go-v_]]* *go-]]*
-]]            [count] forward to next function declaration. If
-              |'g:go_textobj_include_function_doc'| is enabled and if your
-              on a comment, it skips the function which the comment
-              belongs and forwards to the next function declaration.
-
-                                               *go-v_[[* *go-[[*
-[[            [count] backward to previous function declaration.
 
 
 
@@ -506,16 +341,6 @@ if it fails all windows' statuslines will show `failed`.
 To avoid always showing old status information, the status information is
 cleaned for each package after `60` seconds. This can be changed with the
 |'g:go_statusline_duration'| setting.
-
-                                                       *go#complete#GetInfo()*
-
-Returns the description of the identifer under the cursor. Can be used to plug
-into the statusline.
-
-                                                   *go#tool#DescribeBalloon()*
-
-Suitable to be used as an expression to show the evaluation balloon. See `help
-balloonexpr`.
 
 ==============================================================================
 SETTINGS                                                        *go-settings*
@@ -562,119 +387,11 @@ changing the behaviour of our custom static mappings. By default it's enabled.
 >
   let g:go_jump_to_error = 1
 <
-                                                         *'g:go_fmt_autosave'*
-
-Use this option to auto |:GoFmt| on save. By default it's enabled >
-
-  let g:go_fmt_autosave = 1
-<
-                                                          *'g:go_fmt_command'*
-
-Use this option to define which tool is used to gofmt. By default `gofmt` is
-used.
->
-
-  let g:go_fmt_command = "gofmt"
-<
-                                                          *'g:go_fmt_options'*
-
-Use this option to add additional options to the |'g:go_fmt_command'|. It's
-value type can be either a string or a dictionary. This is due backwards
-compatibility. The string version will be removed in the future so please use
-the dictionary version. Default is empty.
->
-  let g:go_fmt_options = ''
-
-  or
-
-  let g:go_fmt_options = {}
-<
-The dictionary version allows you to define options for multiple binaries:
->
-  let g:go_fmt_options = {
-    \ 'gofmt': '-s',
-    \ 'goimports': '-local mycompany.com',
-    \ }
-<
-                                                          *'b:go_fmt_options'*
-
-This option is identical to |'g:go_fmt_options'|, but a buffer-level setting.
-If present, it's used instead of the global setting. By default it is not set.
-
-As an example, the following autocmd will configure goimports to put imports
-of packages from the current module in their own group:
->
-  autocmd FileType go let b:go_fmt_options = {
-    \ 'goimports': '-local ' .
-      \ trim(system('{cd '. shellescape(expand('%:h')) .' && go list -m;}')),
-    \ }
-<
-                                                    *'g:go_fmt_fail_silently'*
-
-Use this option to disable showing a location list when |'g:go_fmt_command'|
-fails. By default the location list is shown. >
-
-  let g:go_fmt_fail_silently = 0
-<
-                                                     *'g:go_fmt_experimental'*
-
-Use this option to enable fmt's experimental mode. This experimental mode is
-superior to the current mode as it fully saves the undo history, so undo/redo
-doesn't break. However, it's slow (creates/deletes a file for every save) and
-it's causing problems on some Vim versions. By default it's disabled. >
-
-  let g:go_fmt_experimental = 0
-
-<
                                                      *'g:go_mod_fmt_autosave'*
 
 Use this option to auto |:GoModFmt| on save. By default it's enabled >
 
   let g:go_mod_fmt_autosave = 1
-<
-
-                                               *'g:go_doc_keywordprg_enabled'*
-
-Use this option to run `godoc` on words under the cursor with |K|; this will
-normally run the `man` program, but for Go using `godoc` is more idiomatic. It
-will not override the 'keywordprg' setting, but will run |:GoDoc|. Default
-is enabled. >
-
-  let g:go_doc_keywordprg_enabled = 1
-<
-                                                           *'g:go_doc_height'*
-
-Maximum height for the GoDoc window created with |:GoDoc|. Default is 20. >
-
-  let g:go_doc_max_height = 20
-<
-                                                     *'g:go_doc_popup_window'*
-
-Use this option to use the popup-window for |K| and |:GoDoc|, rather than the
-|preview-window|. Default is disabled.
->
-  let g:go_doc_popup_window = 0
-<
-                                                             *'g:go_bin_path'*
-
-Use this option to change default path for vim-go tools when using
-|:GoInstallBinaries| and |:GoUpdateBinaries|. If not set `$GOBIN` or
-`$GOPATH/bin` is used. >
-
-  let g:go_bin_path = ""
-<
-                                                *'g:go_search_bin_path_first'*
-
-This option lets |'g:go_bin_path'| (or its default value) take precedence over
-$PATH when invoking a tool command such as |:GoFmt| or |:GoImports|.
-
-Enabling this option ensures that the binaries installed via
-|:GoInstallBinaries| and |:GoUpdateBinaries| are the same ones that are
-invoked via the tool commands.
-
-By default it is enabled. >
-
-  let g:go_search_bin_path_first = 1
 <
                                                            *'g:go_build_tags'*
 
@@ -684,36 +401,6 @@ There is also the |:GoBuildTags| convenience command to change or remove build
 tags.
 >
   let g:go_build_tags = ''
-<
-                                                    *'g:go_autodetect_gopath'*
-
-Automatically modify GOPATH for certain directory structures, such as for
-the `godep` tool which stores dependencies in the `Godeps` folder. What this
-means is that all tools are now working with the newly modified GOPATH. So
-|:GoDef| for example jumps to the source inside the `Godeps` (vendored)
-source. Currently `godep` and `gb` are supported. By default it's disabled.
->
-  let g:go_autodetect_gopath = 0
-<
-                                                      *'g:go_textobj_enabled'*
-
-Adds custom text objects. By default it's enabled. >
-
-  let g:go_textobj_enabled = 1
-<
-                                         *'g:go_textobj_include_function_doc'*
-
-Consider the comment above a function to be part of the function when using
-the `af` text object and `[[` motion. By default it's enabled. >
-
-  let g:go_textobj_include_function_doc = 1
-<
-                                             *'g:go_textobj_include_variable'*
-
-Consider the variable of an function assignment to be part of the anonymous
-function when using the `af` text object. By default it's enabled. >
-
-  let g:go_textobj_include_variable = 1
 <
                                                           *'g:go_list_height'*
 
@@ -740,7 +427,7 @@ that was called. Supported values are "", "quickfix", and "locationlist".
 Specifies the type of list to use for command outputs (such as errors from
 builds, results from static analysis commands, etc...). When an expected key
 is not present in the dictionary, |'g:go_list_type'| will be used instead.
-Supported keys are "GoBuild", "GoFmt", "GoModFmt", "GoInstall", "GoRun"
+Supported keys are "GoBuild", "GoModFmt", "GoInstall", "GoRun"
 and "GoTest".
 Supported values for each command are "quickfix" and "locationlist".
 >
@@ -807,15 +494,6 @@ i.e: |go#statusline#Show()|. By default it's enabled
 >
       let g:go_echo_command_info = 1
 <
-                                                       *'g:go_echo_go_info'*
-
-Use this option to show the identifier information when code completion is
-done. By default it's enabled. >
-
-      let g:go_echo_go_info = 1
-<
-Please note that 'noshowmode' must be set for this feature to work correctly.
-
                                                   *'g:go_statusline_duration'*
 
 Specifies the duration of statusline information being showed per package. By
@@ -1028,7 +706,7 @@ It can also happen when multiple versions of vim-go are installed and the
 version loaded by Vim doesn't have a function introduced by a later version.
 To see where vim-go is being loaded from run
 >
-    :verbose function go#config#FmtAutosave
+    :verbose function go#config#EchoCommandInfo
 <
 
 The output will show the path to the `autoload/go/config.vim` that was loaded

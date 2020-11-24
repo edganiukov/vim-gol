@@ -135,13 +135,11 @@ endfunction
 " in g:go_list_type_commands.
 let s:default_list_type_commands = {
       \ "GoBuild":              "quickfix",
-      \ "GoFmt":                "locationlist",
       \ "GoGenerate":           "quickfix",
       \ "GoInstall":            "quickfix",
       \ "GoModFmt":             "locationlist",
       \ "GoRun":                "quickfix",
       \ "GoTest":               "quickfix",
-      \ "GoVet":                "quickfix",
       \ "_term":                "locationlist",
       \ "_job":                 "locationlist",
   \ }

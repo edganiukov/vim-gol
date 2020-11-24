@@ -191,7 +191,7 @@ function! go#util#Exec(cmd, ...) abort
 
   " Lookup the full path, respecting settings such as 'go_bin_path'. On errors,
   " CheckBinPath will show a warning for us.
-  let l:bin = go#path#CheckBinPath(l:bin)
+  let l:bin = go#util#CheckBinPath(l:bin)
   if empty(l:bin)
     return ['', 1]
   endif
@@ -583,6 +583,53 @@ function! go#util#MatchAddPos(group, pos)
   for l:positions in l:partitions
     call matchaddpos(a:group, l:positions)
   endfor
+endfunction
+
+" CheckBinPath checks whether the given binary exists or not and returns the
+" path of the binary, respecting the go_bin_path and go_search_bin_path_first
+" settings. It returns an empty string if the binary doesn't exist.
+function! go#util#CheckBinPath(binpath) abort
+  " remove whitespaces if user applied something like 'goimports   '
+  let binpath = substitute(a:binpath, '^\s*\(.\{-}\)\s*$', '\1', '')
+
+  " save original path
+  let old_path = $PATH
+
+  " if it's in PATH just return it
+  if executable(binpath)
+    if exists('*exepath')
+      let binpath = exepath(binpath)
+    endif
+    let $PATH = old_path
+
+    if go#util#IsUsingCygwinShell() == 1
+      return s:CygwinPath(binpath)
+    endif
+
+    return binpath
+  endif
+
+  " just get the basename
+  let basename = fnamemodify(binpath, ":t")
+  if !executable(basename)
+    call go#util#EchoError(printf("could not find '%s'", basename))
+
+    " restore back!
+    let $PATH = old_path
+    return ""
+  endif
+
+  let $PATH = old_path
+
+  if go#util#IsUsingCygwinShell() == 1
+    return s:CygwinPath(a:binpath)
+  endif
+
+  return go_bin_path . go#util#PathSep() . basename
+endfunction
+
+function! s:CygwinPath(path)
+   return substitute(a:path, '\\', '/', "g")
 endfunction
 
 " restore Vi compatibility settings
