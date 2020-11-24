@@ -22,9 +22,8 @@ CONTENTS                                                         *go-contents*
   6. Settings.....................................|go-settings|
   7. Syntax highlighting..........................|go-syntax|
   8. FAQ/Troubleshooting..........................|go-troubleshooting|
-  9. Development..................................|go-development|
- 10. Donation.....................................|go-donation|
- 11. Credits......................................|go-credits|
+  9. Donation.....................................|go-donation|
+ 10. Credits......................................|go-credits|
 
 ==============================================================================
 INTRO                                                               *go-intro*
@@ -729,24 +728,6 @@ is just slower than normal, but doesn't render unexpected characters in the
 currrent window, then the problem is most likely the `g:go_highlight_*`
 options. Try disabling them if you've enabled some of them.
 
-I want to use a different binary name than "go", can I do this?~
-
-There is no way to directly configure the binary name; but you can use a
-wrapper script; for example if you would like to run `goapp` instead of `go`:
-
-1. In `~/gobin/go` (remember to make it executable):
->
-     #!/bin/sh
-     # Remove gobin from PATH and run goapp.
-     PATH=${PATH#$HOME/gobin} goapp "$@"
-<
-2. Start Vim with `~/gobin` as the first `PATH` entry so it will use the
-   wrapper script:
->
-     PATH="$HOME/gobin/:$PATH" vim
-<
-   Alternatively you you could set `$PATH` in your vimrc with an |:autocmd|.
-
 
 How do I run focused ginkgo tests?~
 
@@ -785,37 +766,6 @@ you'd like to turn off) to your vimrc.
 
 Some people may wish to highlight Go's builtins as keywords. To do so, one
 should simply add `highlight link goBuiltins Keyword` to the `vimrc` file.
-
-==============================================================================
-DEVELOPMENT                                               *go-development*
-
-vim-go supports test files written in VimScript; the way they're run is
-roughly similar to Go tests:
-
-- A `*.vim` file has a corresponding `*_test.vim`.
-- All functions starting with `Test_` are run as test.
-- A test is considered to be "failed" if |v:errors| has any entries. You can
-  use one of the |test-functions| to set this, or append to it directly.
-
-A simple example:
->
- function Test_run_fmt()
-   call assert_equal(expected, actual)
-   ...
- endfunction
-<
-To run tests vim-go comes with three small helper scripts:
-
-  `scripts/install-vim`   Install a pristine Vim to `/tmp/vim-go-test/`.
-  `scripts/run-vim`       Run a Vim version from `/tmp/vim-go-test/`.
-  `scripts/test`          Run all tests with a Vim from `/tmp/vim-go-test/`.
-
-All scripts accept a Vim version as the first argument, which can be
-`vim-8.0` or `nvim`. You will need to install a Vim version with
-`install-vim` before you can use `run-vim` or `test`.
-
-You can install and test all Vim versions by running `make`.
-
 
 ==============================================================================
 DONATION                                                         *go-donation*

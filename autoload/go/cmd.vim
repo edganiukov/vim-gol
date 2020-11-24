@@ -271,7 +271,7 @@ function! go#cmd#Install(bang, ...) abort
   if !empty(errors) && !a:bang
     call go#list#JumpToFirst(l:listtype)
   else
-    call go#util#EchoSuccess("installed to ". go#path#Default())
+    call go#util#EchoSuccess("installed")
   endif
 endfunction
 
