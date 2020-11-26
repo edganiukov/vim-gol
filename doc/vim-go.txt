@@ -124,27 +124,6 @@ COMMANDS                                                         *go-commands*
     If using neovim then this command is fully async, it does not block the
     UI.
 
-                                                                 *:GoGenerate*
-:GoGenerate[!] [expand]
-
-    Creates or updates your auto-generated source files by running `go
-    generate`.
-
-    You may optionally pass any valid go generate flags/options. For a full
-    list please see `go help generate`. Options are expanded with [expand].
-
-    If [!] is not given the first error is jumped to.
-
-                                                                  *:GoInstall*
-:GoInstall[!] [options]
-
-    Install your package with `go install`.
-
-    You may optionally pass any valid go install flags/options. For a full
-    list please see `go help install`.
-
-    If [!] is not given the first error is jumped to.
-
                                                                      *:GoTest*
 :GoTest[!] [expand]
 
@@ -225,17 +204,6 @@ COMMANDS                                                         *go-commands*
     Command-line completion also works for this command.
     The default is to use `GoFiles` if no arguments are given.
 
-                                                                *:GoBuildTags*
-:GoBuildTags [tags]
-
-    Changes the build tags for various commands. If you have any file that
-    uses a custom build tag, such as `// +build integration` , this command
-    can be used to pass it to all tools that accepts tags, such as gopls,
-    guru, gorename, etc.
-
-    The build tags is cleared (unset) if `""` is given. If no arguments are
-    given it prints the current build tags.
-
 
                                                      *:GoModFmtAutoSaveToggle*
 :GoModFmtAutoSaveToggle
@@ -284,14 +252,6 @@ This option is neovim only.
                                                                   *(go-build)*
 
 Calls `go build` for the current package
-
-                                                               *(go-generate)*
-
-Calls `go generate` for the current package
-
-                                                                *(go-install)*
-
-Calls `go install` for the current package
 
                                                                    *(go-test)*
 
@@ -391,15 +351,6 @@ changing the behaviour of our custom static mappings. By default it's enabled.
 Use this option to auto |:GoModFmt| on save. By default it's enabled >
 
   let g:go_mod_fmt_autosave = 1
-<
-                                                           *'g:go_build_tags'*
-
-Space-separated list of build tags passed to the `-tags` flag of tools that
-support it.
-There is also the |:GoBuildTags| convenience command to change or remove build
-tags.
->
-  let g:go_build_tags = ''
 <
                                                           *'g:go_list_height'*
 

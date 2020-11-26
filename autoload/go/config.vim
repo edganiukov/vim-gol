@@ -10,21 +10,6 @@ function! go#config#VersionWarning() abort
   return get(g:, 'go_version_warning', 1)
 endfunction
 
-function! go#config#BuildTags() abort
-  return get(g:, 'go_build_tags', '')
-endfunction
-
-function! go#config#SetBuildTags(value) abort
-  if a:value is ''
-    silent! unlet g:go_build_tags
-    call go#lsp#ResetWorkspaceDirectories()
-    return
-  endif
-
-  let g:go_build_tags = a:value
-  call go#lsp#ResetWorkspaceDirectories()
-endfunction
-
 function! go#config#TestTimeout() abort
  return get(g:, 'go_test_timeout', '10s')
 endfunction
@@ -79,10 +64,6 @@ endfunction
 
 function! go#config#Debug() abort
   return get(g:, 'go_debug', [])
-endfunction
-
-function! go#config#DefReuseBuffer() abort
-  return get(g:, 'go_def_reuse_buffer', 0)
 endfunction
 
 function! go#config#ListHeight() abort

@@ -55,7 +55,6 @@ function! s:SetTagbar()
   endif
 endfunction
 
-
 call s:SetTagbar()
 
 " restore Vi compatibility settings

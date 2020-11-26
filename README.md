@@ -4,7 +4,7 @@ A lightweight vim plugin for Go
 It is a fork of [vim-go](https://github.com/fatih/vim-go) with removed all unnecessary functionality (that I don't use or possible to replace with [vim-lsp](https://github.com/prabirshrestha/vim-lsp)).
 
 ## Features
-* Compile your package with `:GoBuild`, install it with `:GoInstall`.
+* Compile your package with `:GoBuild`.
 * Test it with `:GoTest`, run a single test with `:GoTestFunc`.
 * Quickly execute your current file(s) with `:GoRun`.
 * Improved syntax highlighting and folding.

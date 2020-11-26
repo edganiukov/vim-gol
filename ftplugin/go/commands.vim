@@ -3,10 +3,7 @@ command! -nargs=0 -range GoModFmt call go#mod#Format()
 
 " -- cmd
 command! -nargs=* -bang GoBuild call go#cmd#Build(<bang>0,<f-args>)
-command! -nargs=? -bang GoBuildTags call go#cmd#BuildTags(<bang>0, <f-args>)
-command! -nargs=* -bang GoGenerate call go#cmd#Generate(<bang>0,<f-args>)
 command! -nargs=* -bang -complete=file GoRun call go#cmd#Run(<bang>0,<f-args>)
-command! -nargs=* -bang GoInstall call go#cmd#Install(<bang>0, <f-args>)
 
 " -- test
 command! -nargs=* -bang GoTest call go#test#Test(<bang>0, 0, <f-args>)
