@@ -87,6 +87,32 @@ function! go#cmd#Build(bang, ...) abort
 
 endfunction
 
+" BuildTags sets or shows the current build tags used for tools
+function! go#cmd#BuildTags(bang, ...) abort
+  if a:0
+    let v = a:1
+    if v == '""' || v == "''"
+      let v = ""
+    endif
+    call go#config#SetBuildTags(v)
+    let tags = go#config#BuildTags()
+    if empty(tags)
+      call go#util#EchoSuccess("build tags are cleared")
+    else
+      call go#util#EchoSuccess("build tags are changed to: " . tags)
+    endif
+
+    return
+  endif
+
+  let tags = go#config#BuildTags()
+  if empty(tags)
+    call go#util#EchoSuccess("build tags are not set")
+  else
+    call go#util#EchoSuccess("current build tags: " . tags)
+  endif
+endfunction
+
 
 " Run runs the current file (and their dependencies if any) in a new terminal.
 function! go#cmd#RunTerm(bang, mode, files) abort

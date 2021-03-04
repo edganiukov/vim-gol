@@ -204,6 +204,16 @@ COMMANDS                                                         *go-commands*
     Command-line completion also works for this command.
     The default is to use `GoFiles` if no arguments are given.
 
+                                                                *:GoBuildTags*
+:GoBuildTags [tags]
+
+    Changes the build tags for various commands. If you have any file that
+    uses a custom build tag, such as `// +build integration` , this command
+    can be used to pass it to all tools that accepts tags, such as gopls,
+    guru, gorename, etc.
+
+    The build tags is cleared (unset) if `""` is given. If no arguments are
+    given it prints the current build tags.
 
                                                      *:GoModFmtAutoSaveToggle*
 :GoModFmtAutoSaveToggle

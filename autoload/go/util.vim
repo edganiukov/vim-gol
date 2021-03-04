@@ -102,6 +102,18 @@ function! go#util#goos() abort
   return substitute(s:exec(['go', 'env', 'GOOS'])[0], '\n', '', 'g')
 endfunction
 
+" goroot returns 'go env GOROOT'. This is an internal function and shouldn't
+" be used. Instead use 'go#util#env("goroot")'
+function! go#util#goroot() abort
+  return substitute(s:exec(['go', 'env', 'GOROOT'])[0], '\n', '', 'g')
+endfunction
+
+" gopath returns 'go env GOPATH'. This is an internal function and shouldn't
+" be used. Instead use 'go#util#env("gopath")'
+function! go#util#gopath() abort
+  return substitute(s:exec(['go', 'env', 'GOPATH'])[0], '\n', '', 'g')
+endfunction
+
 " gomod returns 'go env GOMOD'. gomod changes depending on the folder. Don't
 " use go#util#env as it caches the value.
 function! go#util#gomod() abort
